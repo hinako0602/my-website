@@ -1,0 +1,219 @@
+/* 大正モダン風スタイル */
+body {
+    font-family: "Yu Mincho", "Hiragino Mincho ProN", "MS PMincho", serif;
+    background-color: #f0e6d2; /* ベースの背景色 */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden; /* 椿が画面外にはみ出さないように */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.tsubaki-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.tsubaki {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    transition: transform 1s ease-in-out;
+}
+
+.tsubaki .bud {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #2e5943; /* 濃い緑 */
+    transform: scale(0.5);
+    transition: transform 1s ease-in-out;
+}
+
+.tsubaki.bloom .bud {
+    transform: scale(0);
+}
+
+.tsubaki .petal {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background-color: #c0392b; /* 赤 */
+    border-radius: 50% 0;
+    left: 25%;
+    top: 0;
+    transform-origin: bottom center;
+    opacity: 0;
+}
+
+.tsubaki.bloom .petal {
+    animation: bloom-petal 1s ease-out forwards;
+}
+
+.tsubaki .petal:nth-child(2) { transform: rotate(72deg); }
+.tsubaki .petal:nth-child(3) { transform: rotate(144deg); }
+.tsubaki .petal:nth-child(4) { transform: rotate(216deg); }
+.tsubaki .petal:nth-child(5) { transform: rotate(288deg); }
+
+.tsubaki .center {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #f1c40f; /* 黄色 */
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s 0.5s ease-out;
+}
+
+.tsubaki.bloom .center {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+@keyframes bloom-petal {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.main-content {
+    display: flex;
+    gap: 40px; /* コンテナ間の隙間 */
+}
+
+.container {
+    writing-mode: vertical-rl; /* 縦書き、右から左へ */
+    text-orientation: mixed;
+    
+    max-height: 80vh; /* 高さを少し調整 */
+    padding: 30px 40px;
+    
+    background: rgba(90, 46, 46, 0.85); /* えんじ色、少し透明にして背景が透けるように */
+    color: #fff;
+    
+    border: 5px solid #3e2723; /* 濃い茶色の枠 */
+    border-radius: 0; /* 角丸は解除 */
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+}
+
+h1 {
+    font-size: 2.5em;
+    border-bottom: none; /* 縦書きなので下線は不要 */
+    border-right: 2px solid #fff; /* 右側に線を引く */
+    padding-right: 20px;
+    margin-left: 20px;
+    letter-spacing: 0.2em; /* 文字間隔を広げる */
+}
+
+h2 {
+    font-size: 1.8em;
+    border-right: 1px solid #ddd;
+    padding-right: 15px;
+    margin-top: 0; /* 上マージンをリセット */
+    margin-left: 20px; /* h1と揃える */
+}
+
+p {
+    font-size: 1.2em;
+    margin-right: 20px; /* 右側のマージン */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-right: 20px;
+}
+
+li {
+    padding: 10px 0;
+    font-size: 1.1em;
+}
+
+/* 新しいコンテナの著者名用のスタイル */
+li br {
+    display: block;
+    content: "";
+    margin-top: 5px;
+}
+
+#frog-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; /* カエルが動く範囲の高さ */
+    z-index: 10; /* コンテンツより手前に表示 */
+    pointer-events: none; /* アニメーションが他の操作を妨げないように */
+}
+
+.frog {
+    position: absolute;
+    bottom: 0;
+    width: 40px;
+    height: 30px;
+    background-color: #27ae60; /* 少し濃い緑 */
+    border-radius: 70% 70% 20% 20%;
+    animation: frog-jump 10s linear infinite;
+}
+
+.frog::before, .frog::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 50%;
+    top: -5px; /* 少し上に飛び出す */
+}
+
+.frog::before {
+    left: 5px;
+}
+
+.frog::after {
+    right: 5px;
+}
+
+@keyframes frog-jump {
+    0%   { left: -5%;  transform: translateY(0) scaleY(1); }
+    5%   {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    10%  { left: 10%;  transform: translateY(0) scaleY(1.1) rotate(0deg); }
+    15%  {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    20%  { left: 20%;  transform: translateY(0) scaleY(1.1) rotate(0deg); }
+    25%  {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    30%  { left: 30%;  transform: translateY(0) scaleY(1.1) rotate(0deg); }
+    35%  {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    40%  { left: 40%;  transform: translateY(0) scaleY(1.1) rotate(0deg); }
+    45%  {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    50%  { left: 50%;  transform: translateY(0) scaleY(1.1) rotate(0deg); }
+    55%  {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    60%  { left: 60%;  transform: translateY(0) scaleY(1.1) rotate(0deg); }
+    65%  {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    70%  { left: 70%;  transform: translateY(0) scaleY(1.1) rotate(0deg); }
+    75%  {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    80%  { left: 80%;  transform: translateY(0) scaleY(1.1) rotate(0deg); }
+    85%  {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    90%  { left: 90%;  transform: translateY(0) scaleY(1.1) rotate(0deg); }
+    95%  {             transform: translateY(-60px) scaleY(0.9) rotate(10deg); }
+    100% { left: 105%; transform: translateY(0) scaleY(1.1) rotate(0deg); }
+}
